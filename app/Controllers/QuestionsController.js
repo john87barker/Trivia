@@ -4,26 +4,35 @@ import { questionsService } from "../Services/QuestionsService.js";
 
 //Private
 function _draw() {
-  let values = ProxyState.values;
+  let values = ProxyState.question;
   let template = ''
-  values.forEach(v => template += v.Template)
-  document.getElementById("app").innerHTML = /*html*/`
-  <button className="btn btn-info" onclick="app.valuesController.addValue()">Add Value</button>  
-  <div className="card-columns values">
-      ${template}
-  </div>
-  `
+  question.forEach(q => template += q.Template)
+  document.getElementById('question').innerHTML = template
+
+
 }
 
 //Public
-export default class ValuesController {
+export default class QuestionsController {
   constructor() {
-    ProxyState.on("values", _draw);
+    ProxyState.on("question", _draw);
     _draw()
   }
 
-  addValue() {
-    valuesService.addValue()
+  async getQuestion() {
+    try {
+      await questionsService.getQuestion()
+    } catch (error) {
+      window.alert("mistakes you made" + error)
+    }
+  }
+
+  async moreQuestions(direction) {
+    try {
+      await questionsService.getQuestion(ProxyState[direction])
+    } catch (error) {
+      window.alert("mistakes you made" + error)
+    }
   }
 
 }
