@@ -4,10 +4,18 @@ import { questionsService } from "../Services/QuestionsService.js";
 
 //Private
 function _draw() {
-  let values = ProxyState.question;
+  let question = ProxyState.questions
   let template = ''
   question.forEach(q => template += q.Template)
+
   document.getElementById('question').innerHTML = template
+
+  document.getElementById('buttons').innerHTML = `
+  <button type="button" class="btn btn-warning" ${ProxyState.previous ? '' : 'disabled'}
+    onclick="app.peoplesController.getMore('previous')">previous</button>
+  <button type="button" class="btn btn-success" ${ProxyState.next ? '' : 'disabled'}
+    onclick="app.peoplesController.getMore('next')">next</button>
+  `
 
 
 }
@@ -15,7 +23,7 @@ function _draw() {
 //Public
 export default class QuestionsController {
   constructor() {
-    ProxyState.on("question", _draw);
+    ProxyState.on("questions", _draw);
     _draw()
   }
 

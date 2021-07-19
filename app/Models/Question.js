@@ -1,4 +1,4 @@
-export default class Value {
+export default class Question {
     constructor({ category, difficulty, question, correct_answer, incorrect_answer }) {
         this.category = category
         this.difficulty = difficulty
@@ -10,7 +10,8 @@ export default class Value {
     get Template() {
 
         return /*html*/`
-        <li> ${this.category} n/ ${this.question}n/ - ${this.correct}
+        <li>
+        ${this.category} n/ ${this.question}n/ - ${this.correct} ${this.incorrect}
         </li>
         `
     }

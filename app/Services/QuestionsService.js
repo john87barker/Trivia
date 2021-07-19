@@ -10,7 +10,7 @@ class QuestionsService {
     ProxyState.previous = res.data.previous
 
     let question = res.data.results.map(q => new Question(q))
-    ProxyState.question = question
+    ProxyState.questions = question
   }
 
 }
